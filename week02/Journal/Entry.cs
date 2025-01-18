@@ -2,9 +2,9 @@ public class Entry
 {
     public string Prompt { get; }
     public string Response { get; }
-    public DateTime Date { get; }
+    public string Date { get; } // 
 
-    public Entry(string prompt, string response, DateTime date)
+    public Entry(string prompt, string response, string date)
     {
         Prompt = prompt;
         Response = response;
