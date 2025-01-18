@@ -11,7 +11,6 @@ class Program
 
         while (userChoice != "5")
         {
-            Console.WriteLine("\nMenu:");
             Console.WriteLine("1. Write a new entry");
             Console.WriteLine("2. Display the journal");
             Console.WriteLine("3. Save the journal to a file");
@@ -21,7 +20,7 @@ class Program
             Console.Write("Choose an option: ");
             userChoice = Console.ReadLine();
 
-            // Process user choice
+
             switch (userChoice)
             {
                 case "1": 
