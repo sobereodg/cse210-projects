@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 public class Journal
 {
     public List<Entry> _entries = new List<Entry>();
@@ -7,11 +9,13 @@ public class Journal
     {
         string prompt = _promptGenerator.GetRandomPrompt();
 
-        Console.WriteLine($"\nPrompt: {prompt}");
-        Console.Write("Your response: ");
+        Console.WriteLine(prompt);
+        Console.Write("> ");
         string response = Console.ReadLine();
 
-        Entry newEntry = new Entry(prompt, response, DateTime.Now);
+        string currentDate = DateTime.Now.ToShortDateString();
+
+        Entry newEntry = new Entry(prompt, response, currentDate);
         _entries.Add(newEntry);
 
         Console.WriteLine("Entry added successfully.");
@@ -21,11 +25,10 @@ public class Journal
     {
         if (_entries.Count == 0)
         {
-            Console.WriteLine("\nThe journal is empty.");
+            
         }
         else
         {
-            Console.WriteLine("\nJournal Entries:");
             foreach (Entry entry in _entries)
             {
                 entry.Display();
@@ -35,7 +38,7 @@ public class Journal
 
     public void SaveToFile()
     {
-         Console.Write("Enter the filename to save to: ");
+        Console.Write("Enter the filename to save to: ");
         string filename = Console.ReadLine();
 
         using (StreamWriter writer = new StreamWriter(filename))
@@ -46,12 +49,12 @@ public class Journal
             }
         }
 
-        Console.WriteLine("Journal saved successfully.");
+        Console.WriteLine($"Journal saved successfully to {filename}.");
     }
 
-    public void LoadFromFile()
+     public void LoadFromFile()
     {
-          Console.Write("Enter the filename to load from: ");
+        Console.Write("Enter the filename to load from: ");
         string filename = Console.ReadLine();
 
         if (File.Exists(filename))
@@ -66,14 +69,14 @@ public class Journal
                 {
                     string prompt = parts[0];
                     string response = parts[1];
-                    DateTime date = DateTime.Parse(parts[2]);
+                    string date = parts[2];
 
                     Entry entry = new Entry(prompt, response, date);
                     _entries.Add(entry);
                 }
             }
 
-            Console.WriteLine("Journal loaded successfully.");
+            Console.WriteLine($"Journal loaded successfully from {filename}");
         }
         else
         {
